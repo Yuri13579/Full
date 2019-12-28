@@ -8,6 +8,7 @@ using SharedAll.DTO;
 using Microsoft.EntityFrameworkCore;
 using SharedAll.Models;
 
+
 namespace Back.MiddleTier
 {
     public class SaleOrderSevrices : ISaleOrderSevrice
@@ -73,7 +74,9 @@ namespace Back.MiddleTier
         }
 
 
-        public async Task<List<SaleDTO>> GetPaginationSale()
+        public async Task<List<SaleDTO>> GetPaginationSale(
+        int page, 
+        int pageSize)
         {
             var query = (from saleOrder in _saleOrderRepository.GetAllSaleOrders().Result
                 join detail in _saleOrderDetailsRepository.GetAllSaleOrderDetails().Result
@@ -98,9 +101,11 @@ namespace Back.MiddleTier
                     //  public string ShopAddress { get; set; }
                 }).AsQueryable();
             
-            query = query.Skip(1);
-            var result = await query.ToListAsync();
-            
+            query = query.Skip((page - 1) * pageSize).Take(pageSize);
+          //  var result = await query.ToListAsync().ConfigureAwait(true);
+          var result = new List<SaleDTO>(query);
+
+
             return result;
         }
 

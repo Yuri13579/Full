@@ -60,12 +60,16 @@ namespace Back.Controllers
             }
         }
      
-        [HttpGet("GetPaginationSale")]
-        public async Task<IActionResult> GetPaginationSale()
+        [HttpGet("GetPaginationSale/{page}/{pageSize}")]
+        public async Task<IActionResult> GetPaginationSale(
+            int page,
+            int pageSize)
         {
             try
             {
-                var result = _saleOrderService.GetPaginationSale();
+                var result = await _saleOrderService.GetPaginationSale( 
+                    page,
+                 pageSize);
                 return Json(result);
             }
             catch (Exception e)

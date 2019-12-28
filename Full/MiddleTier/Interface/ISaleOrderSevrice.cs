@@ -12,6 +12,8 @@ namespace Back.MiddleTier.Interface
         Task<SaleOrder> GetSaleOrderById(int id);
         Task<List<SaleOrder>> GetAllSaleOrder();
         Task<List<SaleDTO>> GetAllSale();
-        Task<List<SaleDTO>> GetPaginationSale();
+        Task<List<SaleDTO>> GetPaginationSale(
+            int page,
+            int pageSize);
     }
 }
