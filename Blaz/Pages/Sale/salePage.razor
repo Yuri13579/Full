@@ -1,0 +1,58 @@
+﻿@page "/salePage"
+@inject HttpClient http
+@inject IJSRuntime js
+@using System.IO
+@using System.Text.Json
+@using SharedAll.Models
+
+
+<div>
+  
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var sale in sales)
+        {
+            <tr>
+                <td>@sale.SaleOrderID</td>
+                <td>@sale.ProductName</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+
+@code {
+    public List<SaleDTO> sales = new List<SaleDTO>();
+    // SaleDTO sale = new SaleDTO { SaleOrderID = 1, ProductName = "Name" };
+    //SaleDTO[] sales;
+    string responseString;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadSale();
+    }
+
+    async Task LoadSale()
+    {
+        var httpResponse = await http.GetAsync($"api/SaleOrders/ALLSales");
+        if (httpResponse.IsSuccessStatusCode)
+        {
+
+             responseString = await httpResponse.Content.ReadAsStringAsync();
+            sales = JsonSerializer.Deserialize<List<SaleDTO>>(responseString,
+        new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+        }
+        else
+        {
+            // handle error
+        }
+    }
+}
