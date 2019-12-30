@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Back.MiddleTier.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using SharedAll.DTO;
 using SharedAll.Models;
 
 namespace Back.Controllers
 {
-    
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController: Controller
@@ -34,14 +35,15 @@ namespace Back.Controllers
 
         //}
 
-
+        [AllowAnonymous]
         [HttpGet("GetSaleOrderById/{id}")]
-        public async Task<Product> GetProductById(int id)
+        public async Task<IActionResult> GetProductById(int id)
         {
             try
             {
                 var result = await _productService.GetProductById(id);
-                return result;
+                Response.Headers.Add("X-Total-Count", "20");
+                return Json(result);
             }
             catch (Exception e)
             {
