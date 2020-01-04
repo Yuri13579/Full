@@ -25,9 +25,19 @@ namespace Back.Repositorys
             return s.Entity;
         }
 
-        public Task<SaleOrder> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            var delSaleOrders = await _context.SaleOrders.FindAsync(id);
+            _context.SaleOrders.Remove(delSaleOrders);
+            var res = _context.SaveChanges();
+            if (res > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public async Task<SaleOrder> Get(int id)

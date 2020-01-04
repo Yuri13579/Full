@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Back.Const;
 using Back.MiddleTier.Interface;
 using Back.Repositorys.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,20 @@ namespace Back.MiddleTier
             Product product = mapper.Map<Product>(productDto);
             var res = await _productRepository.AddProduct(product);
             return res;
+        }
+
+        public async Task<string> DeleteProduct(int id)
+        {
+            var res = await _productRepository.Delete(id);
+            if (res)
+            {
+                return SysConst.DeleteSuccessful; // Task.FromResult(SysConst.DeleteSuccessful); 
+            }
+            else
+            {
+                return SysConst.SomethingWentWrong; //Task.FromResult(SysConst.SomethingWentWrong);
+            }
+            
         }
     }
 }

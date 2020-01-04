@@ -12,5 +12,6 @@ namespace Back.MiddleTier.Interface
         Task<Product> GetProductById(int id);
         Task<List<Product>>  GetAllProducts();
         Task<Product> AddProduct(ProductDTO productDto);
+        Task<string> DeleteProduct(int id);
     }
 }

@@ -52,5 +52,10 @@ namespace Back.Repositorys
         {
             throw new NotImplementedException();
         }
+
+        Task<bool> IRepository<SaleOrderDetail>.Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

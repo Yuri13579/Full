@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Back.Const;
 using Back.Context;
 using Back.Repositorys.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -22,9 +23,20 @@ namespace Back.Repositorys
             throw new NotImplementedException();
         }
 
-        public Task<Product> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+
+            var delProduct = await _context.Products.FindAsync(id);
+            _context.Products.Remove(delProduct);
+            var res = _context.SaveChanges();
+            if (res> 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public async Task<Product> GetProduct(int id)

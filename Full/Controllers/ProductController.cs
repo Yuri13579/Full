@@ -58,7 +58,7 @@ namespace Back.Controllers
         {
             try
             {
-                var result = _productService.GetAllProducts();
+                var result = await _productService.GetAllProducts();
                 return Json(result); //result;
             }
             catch (Exception e)
@@ -77,5 +77,20 @@ namespace Back.Controllers
             return Json(result);
         } 
 
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            try
+            {
+                var result = await _productService.DeleteProduct(id);
+                Response.Headers.Add("X-Total-Count", "20");
+                return Json(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
+        }
     }
 }

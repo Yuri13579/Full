@@ -23,18 +23,25 @@ namespace Back.Repositorys
             return entity;
         }
 
-        public async Task<TEntity> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             var entity = await context.Set<TEntity>().FindAsync(id);
             if (entity == null)
             {
-                return entity;
+                return false;
             }
 
-            context.Set<TEntity>().Remove(entity);
+           var res = context.Set<TEntity>().Remove(entity);
             await context.SaveChangesAsync();
 
-            return entity;
+            if (res != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public async Task<TEntity> Get(int id)

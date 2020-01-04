@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Back.Const;
 using Back.MiddleTier.Interface;
 using Back.Repositorys.Interface;
 using SharedAll.DTO;
@@ -72,8 +73,7 @@ namespace Back.MiddleTier
             return result;
 
         }
-
-
+        
         public async Task<List<SaleDTO>> GetPaginationSale(
         int page, 
         int pageSize)
@@ -107,6 +107,20 @@ namespace Back.MiddleTier
 
 
             return result;
+        }
+
+        public async Task<string> DeleteSaleOrder(int id)
+        {
+            var res = await _saleOrderRepository.Delete(id);
+            if (res)
+            {
+                return SysConst.DeleteSuccessful; 
+            }
+            else
+            {
+                return SysConst.SomethingWentWrong; 
+            }
+
         }
 
     }

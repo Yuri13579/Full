@@ -9,8 +9,10 @@ namespace Back.Const
     {
         public const string ParameterNoValid ="Parameter no valid";
         public const string CorrectLogin = "correct login";
+        public const string DeleteSuccessful= "Delete successful";
+        public const string AddedSuccessfully = "Added successfully";
+        public const string SomethingWentWrong = "something went wrong";
 
-        
 
     }
 }
