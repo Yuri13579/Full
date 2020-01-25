@@ -25,18 +25,9 @@ namespace Back.Controllers
         {
             _productService = productService;
         }
-
-        //[HttpGet]
-        //public async Task<Product> Get()
-        //{
-        //    int id = 1;
-        //    var result = await _productService.GetAllProducts();
-        //    return result;
-
-        //}
-
+        
         [AllowAnonymous]
-        [HttpGet("GetSaleOrderById/{id}")]
+        [HttpGet("GetProductById/{id}")]
         public async Task<IActionResult> GetProductById(int id)
         {
             try
@@ -75,7 +66,15 @@ namespace Back.Controllers
             var result = await _productService.AddProduct(productDto);
 
             return Json(result);
-        } 
+        }
+
+        [HttpPut("PutProduct")]
+        public async Task<IActionResult> PutProduct([FromBody] ProductDTO productDto)
+        {
+            var result = await _productService.PutProduct(productDto);
+
+            return Json(result);
+        }
 
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeleteProduct(int id)

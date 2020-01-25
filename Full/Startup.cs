@@ -136,19 +136,16 @@ namespace Back
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-               // app.UseBlazorDebugging();
             }
 
             app.UseStaticFiles();
-        //    app.UseClientSideBlazorFiles<Blaz.Startup>();
-
+   
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                endpoints.MapDefaultControllerRoute();
-             //   endpoints.MapFallbackToClientSideBlazor<Blaz.Startup>("index.html");
             });
         }
     }

@@ -11,5 +11,7 @@ namespace Back.Repositorys.Interface
       Task<Product> GetProduct(int id);
       Task<List<Product>> GetAllProducts();
       Task<Product> AddProduct(Product product);
-  }
+      Task<Product> PutProduct(Product product);
+        
+    }
 }

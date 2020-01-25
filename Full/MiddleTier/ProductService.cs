@@ -35,14 +35,6 @@ namespace Back.MiddleTier
 
         public async Task<Product> AddProduct(ProductDTO productDto)
         {
-            //var res= await _productRepository.AddProduct(new Product
-            //{
-            //    Barcode = productDto.ProductBarcode,
-            //    ProductId = productDto.ProductId,
-            //    Name = productDto.ProductName,
-            //    Description = productDto.ProductDescription
-
-            //});
             var config = new MapperConfiguration(cfg => cfg.CreateMap<ProductDTO ,Product >());
             var mapper = new Mapper(config);
             Product product = mapper.Map<Product>(productDto);
@@ -50,6 +42,17 @@ namespace Back.MiddleTier
             return res;
         }
 
+        public async Task<Product> PutProduct(ProductDTO productDto)
+        {
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<ProductDTO, Product>());
+            var mapper = new Mapper(config);
+            Product product = mapper.Map<Product>(productDto);
+            product.ProductId = productDto.Id;
+            var res = await _productRepository.PutProduct(product);
+            return res;
+        }
+
+        
         public async Task<string> DeleteProduct(int id)
         {
             var res = await _productRepository.Delete(id);

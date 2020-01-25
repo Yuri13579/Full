@@ -87,5 +87,18 @@ namespace Back.Repositorys
             await _context.SaveChangesAsync();
             return res.Entity;
         }
+        
+        public async Task<Product> PutProduct(Product product)
+        {
+            var oldProduct = await _context.Products.FindAsync(product.ProductId);
+            oldProduct.Barcode = product.Barcode;
+            oldProduct.CategoryId = product.CategoryId;
+            oldProduct.Description = product.Description;
+            oldProduct.Name = product.Name;
+            var res = _context.Products.Update(oldProduct);
+             _context.SaveChanges();
+            return res.Entity;
+        }
+
     }
 }
